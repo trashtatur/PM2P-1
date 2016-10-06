@@ -1,4 +1,7 @@
 package umsatz;
+
+import java.util.Arrays;
+
 /**
  * Created by andi on 06.10.16.
  */
@@ -21,4 +24,10 @@ public class Rechnung {
     }
 
 
+    public String toString() {
+        return "Rechnung{" +
+                "rechnungsnummer=" + rechnungsnummer +
+                ", positionen=" + Arrays.toString(positionen) +
+                '}';
+    }
 }
