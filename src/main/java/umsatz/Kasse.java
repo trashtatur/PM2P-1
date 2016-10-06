@@ -13,4 +13,14 @@ public class Kasse {
         ++count;
     }
 
+    @Override
+    public String toString(){
+        String temp = "";
+        for(Rechnung rech : rechnungArray){
+            temp += rech.toString  + "|||\n";
+        }
+        return temp;
+    }
+
+
 }
