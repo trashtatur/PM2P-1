@@ -17,7 +17,7 @@ public class Kasse {
     public String toString(){
         String temp = "";
         for(Rechnung rech : rechnungArray){
-            temp += rech.toString  + "|||\n";
+            temp += rech.toString()  + "|||\n";
         }
         return temp;
     }
