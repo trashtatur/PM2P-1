@@ -1,11 +1,11 @@
 package umsatz;
 
 public class Kasse {
-    private Array<Rechnung> rechnungArray;
+    private Rechnung[] rechnungArray;
     private int count = 0;
 
     public Kasse(int init){
-        rechnungArray = new Array<Rechnung>(init);
+        rechnungArray = new Rechnung[init];
     }
 
     public void addRechnung(Rechnung rechnung){
