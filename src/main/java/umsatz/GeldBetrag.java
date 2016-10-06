@@ -32,11 +32,6 @@ public class GeldBetrag {
     }
 
     public String toString() {
-        if (cent==0) {
-            return euro + "€";
-        }
-        else {
-            return euro+","+cent+"€";
-        }
+        return cent == 0 ? euro + "€" : euro + "," + cent + "€";
     }
 }
