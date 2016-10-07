@@ -9,6 +9,7 @@ public class GeldBetrag {
 
 
     public GeldBetrag() {
+
         this(0,0);
     }
 
@@ -18,10 +19,12 @@ public class GeldBetrag {
     }
 
     public int getCent() {
+
         return cent;
     }
 
     public int getEuro() {
+
         return euro;
     }
 
