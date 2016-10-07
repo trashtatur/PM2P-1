@@ -10,20 +10,32 @@ public class Rechnung {
     private int initialeKapazitaet;
     private int cursor;
     private Position positionen[];
+    private int erweiternUm;
+
+
 
 
     public Rechnung(int rechnungsnummer) {
-        this(rechnungsnummer,5,0);
-    }
-
-    public Rechnung(int rechnungsnummer, int initialeKapazitaet, int cursor) {
         this.rechnungsnummer = rechnungsnummer;
-        this.initialeKapazitaet = initialeKapazitaet;
-        this.cursor = cursor;
+        this.initialeKapazitaet = 5;
+        this.cursor = 0;
         this.positionen = new Position[initialeKapazitaet];
+        this.erweiternUm=2;
     }
 
+    public void add (Position pos) {
+        if (cursor<positionen.length) {
+            positionen[cursor]=pos;
+            cursor++;
+        }
+        else {
+            positionen=Arrays.copyOf(positionen,positionen.length+erweiternUm);
+            positionen[cursor]=pos;
+            cursor++;
 
+        }
+
+    }
     public String toString() {
         return "Rechnung{" +
                 "rechnungsnummer=" + rechnungsnummer +
