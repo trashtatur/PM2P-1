@@ -12,11 +12,13 @@ public class Position {
         geldBetrag = new GeldBetrag(cent,euro);
     }
 
-    public String getPrice(){
-        return geldBetrag.toString();
+    public GeldBetrag getPrice(){
+
+        return geldBetrag;
     }
 
     public String getGerichtOderGetraenk(){
+
         return gerichtOderGetraenk;
     }
 

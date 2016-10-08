@@ -36,6 +36,23 @@ public class Rechnung {
         }
 
     }
+
+    public Position[] getPositionen() {
+        return positionen;
+    }
+
+    public GeldBetrag rechnungsSumme() {
+
+        for (Position posi: positionen) {
+
+
+            posi.getPrice()
+
+        }
+
+    }
+
+
     public String toString() {
         Position[] tempary=Arrays.copyOf(positionen,cursor-1);
         return "Rechnung{" +
