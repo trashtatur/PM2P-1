@@ -22,11 +22,18 @@ public class Kasse {
         return temp;
     }
 
-    public String kassenStand() {
-        int betrag;
+    public GeldBetrag kassenStand() {
+        int euro = 0;
+        int cent = 0;
         for (Rechnung rechnung : rechnungArray) {
-            rechnung.rechnungsS
-
+            GeldBetrag geldBetrag = rechnung.rechnungsSumme();
+            euro += geldBetrag.getEuro();
+            cent += geldBetrag.getCent();
         }
+        while(cent >= 100){
+            cent -= 100;
+            ++euro;
+        }
+        return new GeldBetrag(cent,euro);
     }
 }
