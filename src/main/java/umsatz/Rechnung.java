@@ -36,6 +36,8 @@ public class Rechnung {
         }
 
     }
+
+
     public String toString() {
         Position[] tempary=Arrays.copyOf(positionen,cursor-1);
         return "Rechnung{" +
