@@ -42,13 +42,20 @@ public class Rechnung {
     }
 
     public GeldBetrag rechnungsSumme() {
-
+        int sumcent=0;
+        int sumeuro=0;
         for (Position posi: positionen) {
 
-
-            posi.getPrice()
-
+            GeldBetrag geldvar=posi.getPrice();
+            sumeuro+=geldvar.getEuro();
+            sumcent+=geldvar.getCent();
         }
+        while (sumcent>=100) {
+            sumcent-=100;
+            sumeuro+=1;
+        }
+
+        return new GeldBetrag(sumcent,sumeuro);
 
     }
 
