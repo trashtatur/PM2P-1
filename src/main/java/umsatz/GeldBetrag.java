@@ -20,7 +20,7 @@ public class GeldBetrag {
         this.formatMoney();
     }
 
-    public void formatMoney() {
+    private void formatMoney() {
         while (this.cent>100) {
             this.cent-=100;
             this.euro+=1;
