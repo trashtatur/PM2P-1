@@ -1,5 +1,6 @@
 package umsatz;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -14,7 +15,7 @@ public class GeldBetragTest {
     GeldBetrag betragfinal;
 
 
-    @org.junit.Before
+    @Before
     public void init() {
         highCentValue = 1567;
         temp = highCentValue;
