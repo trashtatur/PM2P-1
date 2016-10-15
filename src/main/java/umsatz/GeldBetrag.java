@@ -9,7 +9,6 @@ public class GeldBetrag {
 
 
     public GeldBetrag() {
-
         this(0,0);
     }
 
