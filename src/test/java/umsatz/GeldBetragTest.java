@@ -26,7 +26,7 @@ public class GeldBetragTest {
 
     @Test
     public void testHighCentValue(){
-        betrag = new GeldBetrag(temp);
+        GeldBetrag betrag = new GeldBetrag(temp);
         assertEquals(highCentValue, betrag.getCent());
         assertEquals(convertedEuro, betrag.getEuro());
     }
