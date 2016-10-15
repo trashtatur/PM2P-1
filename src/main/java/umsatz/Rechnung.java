@@ -32,12 +32,11 @@ public class Rechnung {
             positionen=Arrays.copyOf(positionen,positionen.length+erweiternUm);
             positionen[cursor]=pos;
             cursor++;
-
         }
-
     }
 
     public Position[] getPositionen() {
+
         return positionen;
     }
 
