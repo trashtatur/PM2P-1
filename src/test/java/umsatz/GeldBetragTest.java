@@ -27,19 +27,19 @@ public class GeldBetragTest {
     }
 
     @Test
-    public void testHighCentValue(){
+    public void testHighCentValue() throws Exception{
         GeldBetrag betrag = new GeldBetrag(temp);
         assertEquals(highCentValue, betrag.getCent());
         assertEquals(convertedEuro, betrag.getEuro());
     }
 
     @Test
-    public void testNegative(){
+    public void testNegative() throws Exception{
 
     }
 
     @Test
-    public void add() {
+    public void add() throws Exception {
         GeldBetrag betrag1= new GeldBetrag(00,100);
         GeldBetrag betrag2= new GeldBetrag(00,120);
         assertEquals(betragfinal.getEuro(),(betrag1.add(betrag1,betrag2)).getEuro());
