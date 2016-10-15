@@ -14,7 +14,17 @@ public class GeldBetrag {
     }
 
     public GeldBetrag(int cent, int euro){
+        if(cent < 0 || euro < 0){
+            throw ExceptionError();
+        }
         formatMoney(cent,euro);
+    }
+
+    public GeldBetrag(int cent){
+        if(cent < 0){
+            throw ExceptionError();
+        }
+        formatMoney(cent, 0);
     }
 
     /**
