@@ -50,13 +50,7 @@ public class Rechnung {
             sumeuro+=geldvar.getEuro();
             sumcent+=geldvar.getCent();
         }
-        while (sumcent>=100) {
-            sumcent-=100;
-            sumeuro+=1;
-        }
-
         return new GeldBetrag(sumcent,sumeuro);
-
     }
 
 

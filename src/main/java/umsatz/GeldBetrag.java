@@ -16,6 +16,15 @@ public class GeldBetrag {
     public GeldBetrag(int cent, int euro) {
         this.cent = cent;
         this.euro = euro;
+
+        this.formatMoney();
+    }
+
+    private void formatMoney() {
+        while (this.cent>100) {
+            this.cent-=100;
+            this.euro+=1;
+        }
     }
 
     public int getCent() {
@@ -35,6 +44,7 @@ public class GeldBetrag {
     }
 
     public String toString() {
+
         return cent == 0 ? euro + "€" : euro + "," + cent + "€";
     }
 }
