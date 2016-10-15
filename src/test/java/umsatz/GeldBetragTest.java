@@ -11,13 +11,15 @@ public class GeldBetragTest {
     int highCentValue;
     int convertedEuro;
     int temp;
+    GeldBetrag betragfinal;
 
 
-    @before
+    @org.junit.Before
     public void init() {
         highCentValue = 1567;
         temp = highCentValue;
         convertedEuro = 0;
+        betragfinal=new GeldBetrag(00,220);
         while (highCentValue >= 100) {
             highCentValue -=100;
             ++convertedEuro;
@@ -34,6 +36,14 @@ public class GeldBetragTest {
     @Test
     public void testNegative(){
 
+    }
+
+    @Test
+    public void add() {
+        GeldBetrag betrag1= new GeldBetrag(00,100);
+        GeldBetrag betrag2= new GeldBetrag(00,120);
+        assertEquals(betragfinal.getEuro(),(betrag1.add(betrag1,betrag2)).getEuro());
+        assertEquals(betragfinal.getCent(),(betrag1.add(betrag1,betrag2)).getCent());
     }
 
 
