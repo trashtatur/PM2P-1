@@ -1,17 +1,23 @@
+
 package umsatz;
 
+import static org.junit.*;
+import PM2P-1/src/main/java/umsatz/GeldBetrag;
+import org.junit.Before;
+import org.junit.Test;
+import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 import static org.junit.Assert.*;
 
 /**
  * Created by Philipp on 06.10.2016.
  */
 public class GeldBetragTest {
-    int highCentValue;
-    int convertedEuro;
-    int temp;
+    private int highCentValue;
+    private int convertedEuro;
+    private int temp;
 
 
-    @before
+    @Before
     public void init() {
         highCentValue = 1567;
         temp = highCentValue;
@@ -24,14 +30,14 @@ public class GeldBetragTest {
 
     @Test
     public void testHighCentValue(){
-        betrag = new GeldBetrag(temp);
+        GeldBetrag betrag = new GeldBetrag(temp);
         assertEquals(highCentValue, betrag.getCent());
         assertEquals(convertedEuro, betrag.getEuro());
     }
 
     @Test
     public void testNegative(){
-
+        assertException(new GeldBetrag(-50,-30));
     }
 
 
