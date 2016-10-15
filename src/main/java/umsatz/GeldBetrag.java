@@ -13,18 +13,22 @@ public class GeldBetrag {
         this(0,0);
     }
 
-    public GeldBetrag(int cent, int euro) {
-        this.cent = cent;
-        this.euro = euro;
-
-        this.formatMoney();
+    public GeldBetrag(int cent, int euro){
+        formatMoney(cent,euro);
     }
 
-    private void formatMoney() {
-        while (this.cent>100) {
-            this.cent-=100;
-            this.euro+=1;
+    /**
+     * Converts 100 cents to 1  euro. After cent < 100 the whhile loop stops. Then sets the Object Parameter to the correct value
+     * @param cent expects a value as cent. Can be more then 100.
+     * @param euro expects a value as Euro.
+     */
+    private void formatMoney(int cent, int euro) {
+        while (cent>=100) {
+            cent-=100;
+            euro+=1;
         }
+        this.cent = cent;
+        this.euro = euro;
     }
 
     public int getCent() {
