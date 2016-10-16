@@ -7,19 +7,19 @@ import static org.junit.Assert.*;
  */
 public class RechnungTest {
 
-    private int max=99;
+    private int max=39;
     private int cent;
-    private int euro;
+    private int euro=20;
     private int euro2;
-    private int euromax=5050;
+    private int euromax=780;
     private Position[] posary= new Position[max];
     private Rechnung rechnung;
     private GeldBetrag grossbetrag;
+    private String artikel="banana";
 
 
     @org.junit.Before
     public void setUp() throws Exception {
-        int euro=0;
         int cent=0;
         int euro2=0;
         this.grossbetrag= new GeldBetrag(cent,euromax);
@@ -46,7 +46,7 @@ public class RechnungTest {
     public void rechnungsSumme() throws Exception {
         for (int counter = 0; counter!= max; counter++) {
             rechnung.add(new Position(cent,euro,"Bananashake"));
-            euro++;
+            artikel+="shake";
         }
         assertEquals(grossbetrag,rechnung.rechnungsSumme());
     }
