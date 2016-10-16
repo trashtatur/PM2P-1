@@ -34,10 +34,11 @@ public class Kasse {
     }
 
     public GeldBetrag summePosition(Position pos){
+        GeldBetrag betrag = new GeldBetrag();
         for(Rechnung rechnung : rechnungArray){
             for(Position posRech : rechnung.getPositionen()){
                 if(posRech.equals(pos)){
-
+                    betrag = betrag.add(betrag,posRech.getPrice());
                 }
             }
         }
