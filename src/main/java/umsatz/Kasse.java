@@ -30,10 +30,6 @@ public class Kasse {
             euro += geldBetrag.getEuro();
             cent += geldBetrag.getCent();
         }
-        while(cent >= 100){
-            cent -= 100;
-            ++euro;
-        }
         return new GeldBetrag(cent,euro);
     }
 }
