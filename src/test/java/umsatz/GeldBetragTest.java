@@ -11,6 +11,7 @@ public class GeldBetragTest {
     private int convertedEuro;
     private int temp;
     private GeldBetrag betragfinal;
+    private GeldBetrag zeroconfig=new GeldBetrag(0,0);
 
 
     @Before
@@ -43,6 +44,10 @@ public class GeldBetragTest {
         GeldBetrag betrag2= new GeldBetrag(6,120);
         assertEquals(betragfinal.getEuro(),(betrag1.add(betrag1,betrag2)).getEuro());
         assertEquals(betragfinal.getCent(),(betrag1.add(betrag1,betrag2)).getCent());
+        assertEquals(betragfinal.getCent(),((new GeldBetrag(0,0)).add(new GeldBetrag(0,0),betragfinal)).getCent());
+        assertEquals(betragfinal.getEuro(),((new GeldBetrag(0,0)).add(new GeldBetrag(0,0),betragfinal)).getEuro());
+        assertEquals(new GeldBetrag(0).getCent(),zeroconfig.add(zeroconfig,zeroconfig).getCent());
+        assertEquals(new GeldBetrag(0).getEuro(),zeroconfig.add(zeroconfig,zeroconfig).getEuro());
     }
 
 
