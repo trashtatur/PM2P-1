@@ -32,4 +32,14 @@ public class Kasse {
         }
         return new GeldBetrag(cent,euro);
     }
+
+    public GeldBetrag summePosition(Position pos){
+        for(Rechnung rechnung : rechnungArray){
+            for(Position posRech : rechnung.getPositionen()){
+                if(posRech.equals(pos)){
+
+                }
+            }
+        }
+    }
 }
