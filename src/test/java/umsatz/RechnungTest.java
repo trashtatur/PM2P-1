@@ -11,14 +11,19 @@ public class RechnungTest {
     private int cent;
     private int euro;
     private int euro2;
+    private int euromax=5050;
     private Position[] posary= new Position[max];
+    private Rechnung rechnung;
+    private GeldBetrag grossbetrag;
 
 
     @org.junit.Before
     public void setUp() throws Exception {
         int euro=0;
-        int cent=12;
+        int cent=0;
         int euro2=0;
+        this.grossbetrag= new GeldBetrag(cent,euromax);
+        this.rechnung = new Rechnung(1234);
 
         for (int counter = 0; counter!= max; counter++) {
             posary[counter]=new Position(cent,euro2,"Bananashake");
@@ -29,7 +34,6 @@ public class RechnungTest {
 
     @org.junit.Test
     public void add() throws Exception {
-        Rechnung rechnung = new Rechnung(1234);
         for (int counter = 0; counter!= max; counter++) {
             rechnung.add(new Position(cent,euro,"Bananashake"));
             euro++;
@@ -38,11 +42,12 @@ public class RechnungTest {
 
     }
 
-
-
     @org.junit.Test
     public void rechnungsSumme() throws Exception {
-
+        for (int counter = 0; counter!= max; counter++) {
+            rechnung.add(new Position(cent,euro,"Bananashake"));
+            euro++;
+        }
+        assertEquals(grossbetrag,rechnung.rechnungsSumme());
     }
-
 }
