@@ -44,4 +44,7 @@ public class Kasse {
         }
         return betrag;
     }
+    public int getCount(){
+        return count;
+    }
 }
