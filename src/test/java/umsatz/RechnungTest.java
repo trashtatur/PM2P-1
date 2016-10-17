@@ -7,47 +7,54 @@ import static org.junit.Assert.*;
  */
 public class RechnungTest {
 
-    private int max=39;
-    private int cent;
-    private int euro=20;
-    private int euro2;
-    private int euromax=780;
-    private Position[] posary= new Position[max];
-    private Rechnung rechnung;
-    private GeldBetrag grossbetrag;
-    private String artikel="banana";
+    private Position posi1;
+    private Position posi2;
+    private Position posi3;
+    private Position posi4;
+    private Position posi5;
+    private Position posi6;
+    private Position posi7;
+    private Rechnung rechnEmpty;
+    private Rechnung addrechnung;
+    private Position[] posary;
 
 
     @org.junit.Before
     public void setUp() throws Exception {
-        int cent=0;
-        int euro2=0;
-        this.grossbetrag= new GeldBetrag(cent,euromax);
-        this.rechnung = new Rechnung(1234);
-
-        for (int counter = 0; counter!= max; counter++) {
-            posary[counter]=new Position(cent,euro2,"Bananashake");
-            euro2++;
-        }
-
+        posi1=new Position(15,12,"Ganz teurer Bonbon!");
+        posi2=new Position(0,40,"Fischsalat");
+        posi3=new Position(0,0,"Hier gibs nix umsonst!");
+        posi4=new Position(0,1,"Ein einzelnes Reiskorn");
+        posi5=new Position(10,20,"Riesen Paket Käse");
+        posi6=new Position(15,10,"Schinken Speck und Eiersalat");
+        posi7=new Position(0,100,"Enorm viele Krabben");
+        rechnEmpty=new Rechnung (1337);
+        addrechnung=new Rechnung(9000);
+        posary=new Position[]{posi1,posi2,posi3,posi4,posi5,posi6,posi7};
     }
 
     @org.junit.Test
     public void add() throws Exception {
-        for (int counter = 0; counter!= max; counter++) {
-            rechnung.add(new Position(cent,euro,"Bananashake"));
-            euro++;
-        }
-        assertArrayEquals(posary,rechnung.getPositionen());
+        addrechnung.add(posi1);
+        addrechnung.add(posi2);
+        addrechnung.add(posi3);
+        addrechnung.add(posi4);
+        addrechnung.add(posi5);
+        addrechnung.add(posi6);
+        addrechnung.add(posi7);
+        assertArrayEquals(posary,addrechnung.getPositionen());
 
     }
 
     @org.junit.Test
     public void rechnungsSumme() throws Exception {
-        for (int counter = 0; counter!= max; counter++) {
-            rechnung.add(new Position(cent,euro,"Bananashake"));
-            artikel+="shake";
-        }
-        assertEquals(grossbetrag,rechnung.rechnungsSumme());
+        addrechnung.add(posi1);
+        addrechnung.add(posi2);
+        addrechnung.add(posi3);
+        addrechnung.add(posi4);
+        addrechnung.add(posi5);
+        addrechnung.add(posi6);
+        addrechnung.add(posi7);
+        assertEquals(new GeldBetrag(40,183),addrechnung.rechnungsSumme());
     }
 }
