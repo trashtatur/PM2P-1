@@ -57,7 +57,7 @@ public class RechnungTest {
         addrechnung.add(posi5);
         addrechnung.add(posi6);
         addrechnung.add(posi7);
-        assertEquals(new GeldBetrag(40,183),addrechnung.rechnungsSumme());
-        assertEquals(new GeldBetrag(0,0),rechnEmpty.rechnungsSumme());
+        assertEquals(new GeldBetrag(40,183).toString(),addrechnung.rechnungsSumme().toString());
+        assertEquals(new GeldBetrag(0,0).toString(),rechnEmpty.rechnungsSumme().toString());
     }
 }
