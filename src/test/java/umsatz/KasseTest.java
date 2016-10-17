@@ -4,49 +4,59 @@ import umsatz.Rechnung;
 import static org.junit.Assert.*;
 
 /**
- * Created by Andi on 10.10.2016.
+ * Created by Someone somehell
  */
 public class KasseTest {
     private int anzahl = 5;
     private Rechnung[] rechnungen = new Rechnung[anzahl];
-    private int betrag = 10000;
+    private GeldBetrag betrag = new GeldBetrag();
 
     @org.junit.Before
     public void setUp() throws Exception {
-        int euro = 0;
-        int cent = betrag;
-        while(cent >= 100){
-            ++euro;
-            cent-=100;
-        }
+        betrag = new GeldBetrag(0,50);
         for(int i = 0; i < anzahl; ++i){
             rechnungen[i] = new Rechnung(i);
-            rechnungen[i].add(new Position(cent,euro,"ApfelSaft"));
+            rechnungen[i].add(new Position(betrag,"ApfelSaft"));
         }
-        betrag = betrag*anzahl;
+        betrag = new GeldBetrag(0,50*anzahl);
     }
 
     @org.junit.Test
     public void addRechnung() throws Exception {
-        Kasse kasse = new Kasse(anzahl+1);
+        Kasse kasse = new Kasse();
         for(int i = 0; i < anzahl; ++i){
-            kasse.addRechnung(rechnungen[i]);
+            kasse.add(rechnungen[i]);
         }
-
-        assertEquals(anzahl,kasse.getCount());
-        kasse.addRechnung(new Rechnung(anzahl + 1));
-        assertEquals(anzahl+1,kasse.getCount());
+        assertEquals(betrag,kasse.kassenStand());
     }
 
     @org.junit.Test
     public void kassenStand() throws Exception {
-        Kasse kasse = new Kasse(anzahl+1);
+        Kasse kasse = new Kasse();
         for(int i = 0; i < anzahl; ++i){
-            kasse.addRechnung(rechnungen[i]);
+            kasse.add(rechnungen[i]);
         }
-        assertEquals(betrag, kasse.kassenStand().getCent()+kasse.kassenStand().getEuro()*100);
-        kasse.addRechnung(new Rechnung(anzahl + 1));
-        assertEquals(betrag, kasse.kassenStand().getCent()+kasse.kassenStand().getEuro()*100);
+        assertEquals(betrag, kasse.kassenStand());
+        kasse.add(new Rechnung(anzahl + 1));
+        assertEquals(betrag, kasse.kassenStand());
     }
 
+    @org.junit.Test
+    public void summePosition() throws Exception{
+    	Kasse kasse = new Kasse();
+        for(int i = 0; i < anzahl; ++i){
+            kasse.add(rechnungen[i]);
+        }
+        GeldBetrag geld = kasse.summePosition(new Position(new GeldBetrag(),"ApfelSaft"));
+        GeldBetrag grrr = new GeldBetrag();
+        assertEquals(betrag,geld);
+        geld = kasse.summePosition(new Position(new GeldBetrag(),"Apfel"));
+        assertEquals(grrr,geld);
+        geld = kasse.summePosition(null);
+        assertEquals(grrr,geld);
+
+    }
 }
+//////////////0\\\\\\\\\\\\
+/////////////000\\\\\\\\\\\\
+////////////00000\\\\\\\\\\\\

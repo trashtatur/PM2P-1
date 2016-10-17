@@ -7,9 +7,9 @@ public class Position {
     private GeldBetrag geldBetrag;
     private String gerichtOderGetraenk;
 
-    public Position(int cent,int euro, String gerichtOderGetraenk){
+    public Position(GeldBetrag geldBetrag, String gerichtOderGetraenk){
         this.gerichtOderGetraenk = gerichtOderGetraenk;
-        geldBetrag = new GeldBetrag(cent,euro);
+        this.geldBetrag = geldBetrag;
     }
 
     public GeldBetrag getPrice(){
@@ -22,11 +22,31 @@ public class Position {
         return gerichtOderGetraenk;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Position position = (Position) o;
-        return gerichtOderGetraenk != null ? gerichtOderGetraenk.equals(position.gerichtOderGetraenk) : position.gerichtOderGetraenk == null;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((gerichtOderGetraenk == null) ? 0 : gerichtOderGetraenk.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Position other = (Position) obj;
+		if (gerichtOderGetraenk == null) {
+			if (other.gerichtOderGetraenk != null)
+				return false;
+		} else if (!gerichtOderGetraenk.equals(other.gerichtOderGetraenk))
+			return false;
+		return true;
+	}
+
+    
+    
 }

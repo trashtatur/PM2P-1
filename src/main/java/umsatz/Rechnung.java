@@ -24,35 +24,28 @@ public class Rechnung {
     }
 
     public void add (Position pos) {
-        if (cursor<positionen.length) {
-            positionen[cursor]=pos;
-            cursor++;
-        }
-        else {
+        if (!(cursor<positionen.length)) {
             positionen=Arrays.copyOf(positionen,positionen.length+erweiternUm);
-            positionen[cursor]=pos;
-            cursor++;
         }
-    }
-
-    public Position[] getPositionen() {
-
-        return positionen;
+        positionen[cursor]=pos;
+        cursor++;
     }
 
     public GeldBetrag rechnungsSumme() {
-        int sumcent=0;
-        int sumeuro=0;
+        GeldBetrag temp = new GeldBetrag();
         for (Position posi: positionen)
             if (posi!=null) {
             {
-                sumeuro += posi.getPrice().getEuro();
-                sumcent += posi.getPrice().getCent();
+                temp.add(posi.getPrice());
             }
         }
-        return new GeldBetrag(sumcent,sumeuro);
+        return temp;
     }
-
+    
+    public Position[] getPositionCopy(){
+    	
+    	return positionen.clone();
+    }
 
     public String toString() {
         Position[] tempary=Arrays.copyOf(positionen,cursor-1);
@@ -61,4 +54,41 @@ public class Rechnung {
                 ", positionen=" + Arrays.toString(tempary) +
                 '}';
     }
+    
+    public GeldBetrag summePosition(Position pos){
+    	GeldBetrag betrag = new GeldBetrag();
+    	for(Position temp : positionen){
+    		if(temp != null && temp.equals(pos)){
+    			betrag.add(temp.getPrice());
+    		}
+    	}
+    	return betrag;
+    }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(positionen);
+		result = prime * result + rechnungsnummer;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Rechnung other = (Rechnung) obj;
+		if (!Arrays.equals(positionen, other.positionen))
+			return false;
+		if (rechnungsnummer != other.rechnungsnummer)
+			return false;
+		return true;
+	}
+    
+    
 }
