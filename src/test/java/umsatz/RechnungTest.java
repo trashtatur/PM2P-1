@@ -18,6 +18,7 @@ public class RechnungTest {
     private Rechnung addrechnung;
     private Position[] posary;
     private Position[] emptyposary;
+    private Position[] giantnullposary;
 
 
     @org.junit.Before
@@ -33,6 +34,8 @@ public class RechnungTest {
         addrechnung=new Rechnung(9000);
         posary=new Position[]{posi1,posi2,posi3,posi4,posi5,posi6,posi7};
         emptyposary=new Position[5];
+        giantnullposary=new Position[100];
+
     }
 
     @org.junit.Test
@@ -46,6 +49,7 @@ public class RechnungTest {
         addrechnung.add(posi7);
         assertArrayEquals(posary,addrechnung.getPositionen());
         assertArrayEquals(emptyposary,rechnEmpty.getPositionen());
+        assertNotEquals(giantnullposary,rechnEmpty.getPositionen());
     }
 
     @org.junit.Test
