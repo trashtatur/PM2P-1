@@ -25,10 +25,13 @@ public class Kasse {
     public GeldBetrag kassenStand() {
         int euro = 0;
         int cent = 0;
+
         for (Rechnung rechnung : rechnungArray) {
-            GeldBetrag geldBetrag = rechnung.rechnungsSumme();
-            euro += geldBetrag.getEuro();
-            cent += geldBetrag.getCent();
+            if (rechnung != null) {
+                GeldBetrag geldBetrag = rechnung.rechnungsSumme();
+                euro += geldBetrag.getEuro();
+                cent += geldBetrag.getCent();
+            }
         }
         return new GeldBetrag(cent,euro);
     }
