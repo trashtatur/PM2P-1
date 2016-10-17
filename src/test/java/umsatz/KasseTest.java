@@ -32,12 +32,16 @@ public class KasseTest {
         for(int i = 0; i < anzahl; ++i){
             kasse.addRechnung(rechnungen[i]);
         }
-        assertEquals(betrag, kasse.kassenStand().getCent()+kasse.kassenStand().getEuro()*100);
+        assertEquals(anzahl,kasse.getCount());
     }
 
     @org.junit.Test
     public void kassenStand() throws Exception {
-
+        Kasse kasse = new Kasse(anzahl);
+        for(int i = 0; i < anzahl; ++i){
+            kasse.addRechnung(rechnungen[i]);
+        }
+        assertEquals(betrag, kasse.kassenStand().getCent()+kasse.kassenStand().getEuro()*100);
     }
 
 }
