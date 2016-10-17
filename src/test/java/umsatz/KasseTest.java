@@ -28,19 +28,24 @@ public class KasseTest {
 
     @org.junit.Test
     public void addRechnung() throws Exception {
-        Kasse kasse = new Kasse(anzahl);
+        Kasse kasse = new Kasse(anzahl+1);
         for(int i = 0; i < anzahl; ++i){
             kasse.addRechnung(rechnungen[i]);
         }
+
         assertEquals(anzahl,kasse.getCount());
+        kasse.addRechnung(new Rechnung(anzahl + 1));
+        assertEquals(anzahl+1,kasse.getCount());
     }
 
     @org.junit.Test
     public void kassenStand() throws Exception {
-        Kasse kasse = new Kasse(anzahl);
+        Kasse kasse = new Kasse(anzahl+1);
         for(int i = 0; i < anzahl; ++i){
             kasse.addRechnung(rechnungen[i]);
         }
+        assertEquals(betrag, kasse.kassenStand().getCent()+kasse.kassenStand().getEuro()*100);
+        kasse.addRechnung(new Rechnung(anzahl + 1));
         assertEquals(betrag, kasse.kassenStand().getCent()+kasse.kassenStand().getEuro()*100);
     }
 
