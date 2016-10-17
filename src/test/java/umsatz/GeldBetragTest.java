@@ -34,11 +34,6 @@ public class GeldBetragTest {
     }
 
     @Test
-    public void testNegative() throws Exception{
-
-    }
-
-    @Test
     public void add() throws Exception {
         GeldBetrag betrag1= new GeldBetrag(12,100);
         GeldBetrag betrag2= new GeldBetrag(6,120);
