@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,17 +17,46 @@ public class RechnungsLeser {
 	}
 
 	public Kasse leseKasse() throws FileNotFoundException {
-		ArrayList<Rechnung> rechnungen = new ArrayList<Rechnung>();
+
+		Kasse kasse = new Kasse();
+		ArrayList rechnungen=new ArrayList<Rechnung>();
+		// Erzeugt ein Dateiobjekt f (File) aus dem Namen der Datei quelle
+		// sowie einen Scanner, der das Dateiobjekt f liest.
+		// Eine Zeile in der Datei entspricht einer Rechnung.
 		File f = new File(Paths.get(quelle).toString());
+
 		Scanner sc = new Scanner(f);
-		while(sc.hasNextLine()){
-			String line = sc.nextLine();
-		//	Matcher matcher = new MatchResult();					}
-		Kasse kasse = new Kasse(rechnungen.size());
-		for(Rechnung bill : rechnungen){
-			kasse.addRechnung(bill);
+
+			//Variablen für Scanner
+			//------------------------------------
+			//Trennzeichen ist ||
+			Pattern delim=Pattern.compile("\\s*(;|\\|+)\\s*");
+			//Zum erkennen der Leerzeichen
+			Pattern leerZeichen=Pattern.compile("\\s*");
+
+		while (sc.hasNextLine() && sc.skip(leerZeichen).hasNextLine()) {
+			String zeile=sc.nextLine();
+			Scanner zeileScanner= new Scanner(zeile);
+			zeileScanner.useDelimiter(delim);
+			//Erstelle Rechnungsobjekt mit der Rechnungsnummer, also der ersten Zahl aus der Zeile
+			int rechnungsnummer=Integer.parseInt(zeileScanner.next());
+			Rechnung rechnungVonZeile=new Rechnung(rechnungsnummer);
+				String artikelname="";
+				while (zeileScanner.hasNext()){
+					if (zeileScanner.hasNextInt()){
+						//TODO Geldbetrag muss korrekt von RegExp erfasst werden. ATM wird er nur die Stelle vor dem Komma dazupacken
+						//TODO Also entweder den RegExp ändern oder hier in der Erstellung vom GeldBetrag
+						rechnungVonZeile.add(new Position(new GeldBetrag(zeileScanner.nextInt()),artikelname));
+					}
+					else {
+						artikelname=zeileScanner.next();
+					}
+				}
+				kasse.add(rechnungVonZeile);
 		}
+
 		sc.close();
 		return kasse;
 	}
+
 }
