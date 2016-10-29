@@ -30,16 +30,21 @@ public class RechnungsLeser {
 			//Variablen für Scanner
 			//------------------------------------
 			//Trennzeichen ist ||
-			Pattern delim=Pattern.compile("\\s*(;|\\|+)\\s*");
+			Pattern delim=Pattern.compile("\\s*(\\|{2})\\s*");
+			Pattern matchstring=Pattern.compile("\\s*([A-Za-z\\s]+)\\s*;\\s*(\\d+),?(\\d{0,2})");   //TODO use this string as a matcher Regexp. It is tested and works
 			//Zum erkennen der Leerzeichen
 			Pattern leerZeichen=Pattern.compile("\\s*");
 
 		while (sc.hasNextLine() && sc.skip(leerZeichen).hasNextLine()) {
 			String zeile=sc.nextLine();
 			Scanner zeileScanner= new Scanner(zeile);
+
+			//Trennzeichen die oben definiert wurden werden nun per Zeile genutzt vom zeileScanner
 			zeileScanner.useDelimiter(delim);
+
 			//Erstelle Rechnungsobjekt mit der Rechnungsnummer, also der ersten Zahl aus der Zeile
 			int rechnungsnummer=Integer.parseInt(zeileScanner.next());
+
 			Rechnung rechnungVonZeile=new Rechnung(rechnungsnummer);
 				String artikelname="";
 				while (zeileScanner.hasNext()){
@@ -54,9 +59,7 @@ public class RechnungsLeser {
 				}
 				kasse.add(rechnungVonZeile);
 		}
-
 		sc.close();
 		return kasse;
 	}
-
 }
