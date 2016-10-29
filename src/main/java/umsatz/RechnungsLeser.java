@@ -66,10 +66,10 @@ public class RechnungsLeser {
 
 						if (matcherPosFinder.groupCount()==3) {
 							int cent = Integer.valueOf(matcherPosFinder.group(3));
-							GeldBetrag posgeldBetrag = new GeldBetrag(euro, cent);
+							posgeldBetrag = new GeldBetrag(euro, cent);
 						}
 						else {
-							GeldBetrag posgeldBetrag = new GeldBetrag(euro);
+							posgeldBetrag = new GeldBetrag(euro);
 						}
 
 
