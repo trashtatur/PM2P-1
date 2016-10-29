@@ -19,47 +19,70 @@ public class RechnungsLeser {
 	public Kasse leseKasse() throws FileNotFoundException {
 
 		Kasse kasse = new Kasse();
-		ArrayList rechnungen=new ArrayList<Rechnung>();
 		// Erzeugt ein Dateiobjekt f (File) aus dem Namen der Datei quelle
 		// sowie einen Scanner, der das Dateiobjekt f liest.
 		// Eine Zeile in der Datei entspricht einer Rechnung.
 		File f = new File(Paths.get(quelle).toString());
 
-		Scanner sc = new Scanner(f);
+		Scanner filescanner = new Scanner(f);
 
-			//Variablen für Scanner
+			//Regexps die der Scanner nutzt
 			//------------------------------------
-			//Trennzeichen ist ||
-			Pattern delim=Pattern.compile("\\s*(\\|{2})\\s*");
-			Pattern matchstring=Pattern.compile("\\s*([A-Za-z\\s]+)\\s*;\\s*(\\d+),?(\\d{0,2})");   //TODO use this string as a matcher Regexp. It is tested and works
-			//Zum erkennen der Leerzeichen
-			Pattern leerZeichen=Pattern.compile("\\s*");
+			Pattern delim=Pattern.compile("\\s*\\|{2}\\s*");						//Trennzeichen zwischen Elementen (Token) der Zeile
 
-		while (sc.hasNextLine() && sc.skip(leerZeichen).hasNextLine()) {
-			String zeile=sc.nextLine();
+            Pattern rechnungsNRFinder=Pattern.compile("\\s*(\\d)\\s*");				//RegExp zum Finden der RechnungsNummer am Zeilenanfang
+
+            Pattern positionFinder=Pattern.compile("\\s*([A-Za-z\\s]+)\\s*;\\s*(\\d+),?(\\d{0,2})");   //TODO use this string as a matcher Regexp. It is tested and works
+
+			//-------------------------------------
+
+
+		while (filescanner.hasNextLine() && filescanner.skip("\\s*").hasNextLine()) {
+
+			String zeile=filescanner.nextLine();
 			Scanner zeileScanner= new Scanner(zeile);
 
-			//Trennzeichen die oben definiert wurden werden nun per Zeile genutzt vom zeileScanner
-			zeileScanner.useDelimiter(delim);
+			zeileScanner.useDelimiter(delim);											//Zeilenscanner nutzt delim (   ||  ) als Trennzeichen für Token
 
+
+
+            Matcher matcherRechnungsNr=rechnungsNRFinder.matcher(zeileScanner.next());  //Matcher zum Finden der RechnungsNr anhand des RegExp rechnungsNrFinder
+			Rechnung rechnungforKasse;
+			if (matcherRechnungsNr.matches()) {
+				int rechnungsNr = Integer.valueOf(matcherRechnungsNr.group(1));                //Parsed den Output des Matchers für einen int Wert, da das return in String ist.
+				rechnungforKasse = new Rechnung(rechnungsNr);                        //Baut mit dem umgewandelten Wert ein Rechnungsobjekt
+				System.out.println(rechnungforKasse);                                        //Testausgabe der Rechnung um zu sehen ob die RN übernommen wurde
+			}
 			//Erstelle Rechnungsobjekt mit der Rechnungsnummer, also der ersten Zahl aus der Zeile
-			int rechnungsnummer=Integer.parseInt(zeileScanner.next());
 
-			Rechnung rechnungVonZeile=new Rechnung(rechnungsnummer);
-				String artikelname="";
-				while (zeileScanner.hasNext()){
-					if (zeileScanner.hasNextInt()){
-						//TODO Geldbetrag muss korrekt von RegExp erfasst werden. ATM wird er nur die Stelle vor dem Komma dazupacken
-						//TODO Also entweder den RegExp ändern oder hier in der Erstellung vom GeldBetrag
-						rechnungVonZeile.add(new Position(new GeldBetrag(zeileScanner.nextInt()),artikelname));
-					}
-					else {
-						artikelname=zeileScanner.next();
+
+
+
+				while (zeileScanner.hasNext()) {            //Checkt ob noch Token vorhanden sind
+					Matcher matcherPosFinder = positionFinder.matcher(zeileScanner.next());
+					GeldBetrag posgeldBetrag;
+					if (matcherPosFinder.matches()) {
+						int euro = Integer.valueOf(matcherPosFinder.group(2));
+
+						if (matcherPosFinder.groupCount()==3) {
+							int cent = Integer.valueOf(matcherPosFinder.group(3));
+							GeldBetrag posgeldBetrag = new GeldBetrag(euro, cent);
+						}
+						else {
+							GeldBetrag posgeldBetrag = new GeldBetrag(euro);
+						}
+
+
+						Position posForRechnung = new Position(posgeldBetrag, matcherPosFinder.group(1));
+
+						rechnungforKasse.add(posForRechnung);
 					}
 				}
-				kasse.add(rechnungVonZeile);
+
+			zeileScanner.close();
+			kasse.add(rechnungforKasse);
 		}
-		sc.close();
+		filescanner.close();
 		return kasse;
 	}
 }
