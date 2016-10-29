@@ -87,3 +87,4 @@ public class RechnungsLeser {
 		return kasse;
 	}
 }
+//TODO test the whole thing out!
