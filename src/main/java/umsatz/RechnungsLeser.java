@@ -31,7 +31,7 @@ public class RechnungsLeser {
 
             Pattern rechnungsNRFinder=Pattern.compile("\\s*(\\d)\\s*");				//RegExp zum Finden der RechnungsNummer am Zeilenanfang
 
-            Pattern positionFinder=Pattern.compile("\\s*([A-Za-z\\s]+)\\s*;\\s*(\\d+),?(\\d{0,2})");   //TODO use this string as a matcher Regexp. It is tested and works
+            Pattern positionFinder=Pattern.compile("\\s*([A-Za-z\\s]+)\\s*;\\s*(\\d+),?(\\d{0,2})");   //Liest Positionsname (group1) plus Geld (Group2,Group3) ein
 
 			//-------------------------------------
 
