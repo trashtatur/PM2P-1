@@ -3,7 +3,6 @@ package umsatz;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,7 +46,7 @@ public class RechnungsLeser {
 
 
             Matcher matcherRechnungsNr=rechnungsNRFinder.matcher(zeileScanner.next());  //Matcher zum Finden der RechnungsNr anhand des RegExp rechnungsNrFinder
-			Rechnung rechnungforKasse;
+			Rechnung rechnungforKasse=null;
 			if (matcherRechnungsNr.matches()) {
 				int rechnungsNr = Integer.valueOf(matcherRechnungsNr.group(1));                //Parsed den Output des Matchers für einen int Wert, da das return in String ist.
 				rechnungforKasse = new Rechnung(rechnungsNr);                        //Baut mit dem umgewandelten Wert ein Rechnungsobjekt
@@ -74,9 +73,11 @@ public class RechnungsLeser {
 
 
 						Position posForRechnung = new Position(posgeldBetrag, matcherPosFinder.group(1));
-
-						rechnungforKasse.add(posForRechnung);
+						if (rechnungforKasse!=null) {
+							rechnungforKasse.add(posForRechnung);
+						}
 					}
+
 				}
 
 			zeileScanner.close();
