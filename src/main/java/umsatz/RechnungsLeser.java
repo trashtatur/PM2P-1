@@ -9,6 +9,10 @@ import java.util.regex.Pattern;
 
 public class RechnungsLeser {
 
+	//TODO rausfinden warum er die letzten 2 Positionen nicht mitnimmt von einer Rechnungszeile
+	//TODO rausfinden warum er die 10. Rechnung nicht mitnimmt.
+	//TODO rausfinden warum er die Kasse nicht als String ausgeben will wenn man es verlangt
+
 	private String quelle;
 
 	public RechnungsLeser(String string) {
@@ -50,7 +54,6 @@ public class RechnungsLeser {
 			if (matcherRechnungsNr.matches()) {
 				int rechnungsNr = Integer.valueOf(matcherRechnungsNr.group(1));                //Parsed den Output des Matchers für einen int Wert, da das return in String ist.
 				rechnungforKasse = new Rechnung(rechnungsNr);                        //Baut mit dem umgewandelten Wert ein Rechnungsobjekt
-				System.out.println(rechnungforKasse);                                        //Testausgabe der Rechnung um zu sehen ob die RN übernommen wurde
 			}
 			//Erstelle Rechnungsobjekt mit der Rechnungsnummer, also der ersten Zahl aus der Zeile
 
@@ -63,7 +66,7 @@ public class RechnungsLeser {
 					if (matcherPosFinder.matches()) {
 						int euro = Integer.valueOf(matcherPosFinder.group(2));
 
-						if (matcherPosFinder.groupCount()==3) {
+						if (matcherPosFinder.groupCount()==4) {
 							int cent = Integer.valueOf(matcherPosFinder.group(3));
 							posgeldBetrag = new GeldBetrag(euro, cent);
 						}
@@ -74,6 +77,7 @@ public class RechnungsLeser {
 
 						Position posForRechnung = new Position(posgeldBetrag, matcherPosFinder.group(1));
 						if (rechnungforKasse!=null) {
+							System.out.println(rechnungforKasse);  //Testausgabe
 							rechnungforKasse.add(posForRechnung);
 						}
 					}
@@ -84,7 +88,7 @@ public class RechnungsLeser {
 			kasse.add(rechnungforKasse);
 		}
 		filescanner.close();
+
 		return kasse;
 	}
 }
-//TODO test the whole thing out!
