@@ -11,6 +11,9 @@ public class RechnungsLeser {
 
 	//TODO rausfinden warum er die letzte Position nicht mitnimmt von einer Rechnungszeile
 	//TODO rausfinden warum er die Kasse nicht als String ausgeben will wenn man es verlangt
+	//TODO verbessere den RegExo so das er endende Leerzeichen der Positionsnamen abschneidet
+	//TODO in RechnungsLeser wird in Rechnung 3 der GeldBetrag vom ersten Eintrag nicht korrekt erfasst
+	//TODO Geldbeträge werden generell nicht korrekt zurückgeliefert. (siehe ausgabe der Main)
 
 	private String quelle;
 
