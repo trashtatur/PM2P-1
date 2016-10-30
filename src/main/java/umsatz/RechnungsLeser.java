@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class RechnungsLeser {
 
-	//TODO rausfinden warum er die letzten 2 Positionen nicht mitnimmt von einer Rechnungszeile
+	//TODO rausfinden warum er die letzte Position nicht mitnimmt von einer Rechnungszeile
 	//TODO rausfinden warum er die 10. Rechnung nicht mitnimmt.
 	//TODO rausfinden warum er die Kasse nicht als String ausgeben will wenn man es verlangt
 
@@ -35,7 +35,7 @@ public class RechnungsLeser {
 
             Pattern rechnungsNRFinder=Pattern.compile("\\s*(\\d)\\s*");				//RegExp zum Finden der RechnungsNummer am Zeilenanfang
 
-            Pattern positionFinder=Pattern.compile("\\s*([A-Za-z\\s]+)\\s*;\\s*(\\d+),?(\\d{0,2})");   //Liest Positionsname (group1) plus Geld (Group2,Group3) ein
+            Pattern positionFinder=Pattern.compile("\\s*([A-Za-z-\\s]+)\\s*;\\s*(\\d+),?(\\d{0,2})");   //Liest Positionsname (group1) plus Geld (Group2,Group3) ein
 
 			//-------------------------------------
 
@@ -76,9 +76,10 @@ public class RechnungsLeser {
 
 
 						Position posForRechnung = new Position(posgeldBetrag, matcherPosFinder.group(1));
+						rechnungforKasse.add(posForRechnung);
 						if (rechnungforKasse!=null) {
 							System.out.println(rechnungforKasse);  //Testausgabe
-							rechnungforKasse.add(posForRechnung);
+
 						}
 					}
 
