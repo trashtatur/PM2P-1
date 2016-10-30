@@ -48,7 +48,7 @@ public class Rechnung {
     }
 
     public String toString() {
-        Position[] tempary=Arrays.copyOf(positionen,cursor-1);
+        Position[] tempary=Arrays.copyOf(positionen,cursor);
         return "Rechnung{" +
                 "rechnungsnummer=" + rechnungsnummer +
                 ", positionen=" + Arrays.toString(tempary) +
