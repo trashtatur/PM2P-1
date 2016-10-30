@@ -24,7 +24,7 @@ public class Position {
 
 	@Override
 	public String toString() {
-		return "Position{" + geldBetrag.toString() + ","+ gerichtOderGetraenk + '\'' + '}';
+		return "Position{"+"GB:" + geldBetrag.toString() + ","+"PN:"+ gerichtOderGetraenk + '\'' + '}';
 	}
 
 	@Override
