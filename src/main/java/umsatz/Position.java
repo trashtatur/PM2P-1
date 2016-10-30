@@ -23,6 +23,11 @@ public class Position {
     }
 
 	@Override
+	public String toString() {
+		return "Position{" + geldBetrag.toString() + ","+ gerichtOderGetraenk + '\'' + '}';
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
