@@ -66,9 +66,11 @@ public class RechnungsLeser {
 					Matcher matcherPosFinder = positionFinder.matcher(zeileScanner.next());
 					GeldBetrag posgeldBetrag;
 					if (matcherPosFinder.matches()) {
+						System.out.println(matcherPosFinder.group(3));		//Testausgabe der Cent-Werte
 						int euro = Integer.valueOf(matcherPosFinder.group(2));
 
-						if (matcherPosFinder.groupCount()==4) {
+						if (matcherPosFinder.groupCount()==4) {			//TODO er geht nie in diesen Fall rein erstellt also immer nur GBs mit einem Wert.
+
 							int cent = Integer.valueOf(matcherPosFinder.group(3));
 							posgeldBetrag = new GeldBetrag(euro, cent);
 						}
@@ -80,7 +82,7 @@ public class RechnungsLeser {
 						Position posForRechnung = new Position(posgeldBetrag, matcherPosFinder.group(1));
 						rechnungforKasse.add(posForRechnung);
 						if (rechnungforKasse!=null) {
-							System.out.println(rechnungforKasse);  //Testausgabe
+							//System.out.println(rechnungforKasse);  //Testausgabe
 
 						}
 					}
