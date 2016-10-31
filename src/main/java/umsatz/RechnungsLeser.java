@@ -67,7 +67,6 @@ public class RechnungsLeser {
 						int euro = Integer.valueOf(matcherPosFinder.group(2));
 
 						if (!matcherPosFinder.group(3).equals("")) {
-							System.out.println(matcherPosFinder.group(3));
 							int cent = Integer.valueOf(matcherPosFinder.group(3));
 							posgeldBetrag = new GeldBetrag(cent,euro);
 						}
@@ -90,7 +89,6 @@ public class RechnungsLeser {
 			kasse.add(rechnungforKasse);
 		}
 		filescanner.close();
-
 		return kasse;
 	}
 }
