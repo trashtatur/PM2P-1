@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class RechnungsLeser {
 
-	//TODO rausfinden warum er die letzte Position nicht mitnimmt von einer Rechnungszeile
+	//TODO Den RegExp so ändern das er die endenden Leerzeichen vom Positionsnamen abschneidet
 
 	private String quelle;
 
@@ -29,11 +29,11 @@ public class RechnungsLeser {
 
 			//Regexps die der Scanner nutzt
 			//------------------------------------
-			Pattern delim=Pattern.compile("\\s*\\|{2}\\s*");						//Trennzeichen zwischen Elementen (Token) der Zeile
+			Pattern delim=Pattern.compile("\\|{2}");						//Trennzeichen zwischen Elementen (Token) der Zeile
 
             Pattern rechnungsNRFinder=Pattern.compile("\\s*(\\d+)\\s*");				//RegExp zum Finden der RechnungsNummer am Zeilenanfang
 
-            Pattern positionFinder=Pattern.compile("\\s*([\\w\\s]+)\\s*;\\s*(\\d+),?(\\d{0,2})");   //Liest Positionsname (group1) plus Geld (Group2,Group3) ein
+            Pattern positionFinder=Pattern.compile("\\s*([\\w\\s]+)\\s*;\\s*(\\d+),?(\\d{0,2})\\s*");   //Liest Positionsname (group1) plus Geld (Group2,Group3) ein
 
 			//-------------------------------------
 
@@ -62,8 +62,6 @@ public class RechnungsLeser {
 					Matcher matcherPosFinder = positionFinder.matcher(zeileScanner.next());
 					GeldBetrag posgeldBetrag;
 					if (matcherPosFinder.matches()) {
-						String trimmedstring=matcherPosFinder.group(1).trim();
-						//System.out.println(matcherPosFinder.group(1)+matcherPosFinder.group(2)+","+matcherPosFinder.group(3));
 						int euro = Integer.valueOf(matcherPosFinder.group(2));
 
 						if (!matcherPosFinder.group(3).equals("")) {
@@ -75,7 +73,7 @@ public class RechnungsLeser {
 						}
 
 
-						Position posForRechnung = new Position(posgeldBetrag,trimmedstring);
+						Position posForRechnung = new Position(posgeldBetrag,matcherPosFinder.group(1));
 						rechnungforKasse.add(posForRechnung);
 						if (rechnungforKasse!=null) {
 							System.out.println(rechnungforKasse);  //Testausgabe
