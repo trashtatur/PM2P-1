@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 public class RechnungsLeser {
 
 	//TODO rausfinden warum er die letzte Position nicht mitnimmt von einer Rechnungszeile
-	//TODO rausfinden warum er die Kasse nicht als String ausgeben will wenn man es verlangt
 
 	private String quelle;
 
