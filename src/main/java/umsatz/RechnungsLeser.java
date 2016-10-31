@@ -12,8 +12,7 @@ public class RechnungsLeser {
 	//TODO rausfinden warum er die letzte Position nicht mitnimmt von einer Rechnungszeile
 	//TODO rausfinden warum er die Kasse nicht als String ausgeben will wenn man es verlangt
 	//TODO verbessere den RegExo so das er endende Leerzeichen der Positionsnamen abschneidet
-	//TODO in RechnungsLeser wird in Rechnung 3 der GeldBetrag vom ersten Eintrag nicht korrekt erfasst
-	//TODO Geldbeträge werden generell nicht korrekt zurückgeliefert. (siehe ausgabe der Main)
+	//TODO Geldbeträge werden generell nicht korrekt zurückgeliefert. (siehe ausgabe der Main) --> Korrektur in Geldbetrag notwendig
 
 	private String quelle;
 
@@ -66,11 +65,11 @@ public class RechnungsLeser {
 					Matcher matcherPosFinder = positionFinder.matcher(zeileScanner.next());
 					GeldBetrag posgeldBetrag;
 					if (matcherPosFinder.matches()) {
-						System.out.println(matcherPosFinder.group(3));		//Testausgabe der Cent-Werte
+						//System.out.println(matcherPosFinder.group(1)+matcherPosFinder.group(2)+","+matcherPosFinder.group(3));
 						int euro = Integer.valueOf(matcherPosFinder.group(2));
 
-						if (matcherPosFinder.groupCount()==4) {			//TODO er geht nie in diesen Fall rein erstellt also immer nur GBs mit einem Wert.
-
+						if (!matcherPosFinder.group(3).equals("")) {
+							System.out.println(matcherPosFinder.group(3));
 							int cent = Integer.valueOf(matcherPosFinder.group(3));
 							posgeldBetrag = new GeldBetrag(euro, cent);
 						}
@@ -82,7 +81,7 @@ public class RechnungsLeser {
 						Position posForRechnung = new Position(posgeldBetrag, matcherPosFinder.group(1));
 						rechnungforKasse.add(posForRechnung);
 						if (rechnungforKasse!=null) {
-							//System.out.println(rechnungforKasse);  //Testausgabe
+							System.out.println(rechnungforKasse);  //Testausgabe
 
 						}
 					}
