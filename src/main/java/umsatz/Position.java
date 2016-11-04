@@ -12,15 +12,11 @@ public class Position {
         this.geldBetrag = geldBetrag;
     }
 
-    public GeldBetrag getPrice(){
+    GeldBetrag getPrice(){
 
         return geldBetrag;
     }
 
-    public String getGerichtOderGetraenk(){
-
-        return gerichtOderGetraenk;
-    }
 
 	@Override
 	public String toString() {
