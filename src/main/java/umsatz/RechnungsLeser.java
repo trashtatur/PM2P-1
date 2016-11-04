@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 public class RechnungsLeser {
 
-	//TODO Den RegExp so ändern das er die endenden Leerzeichen vom Positionsnamen abschneidet
 
 	private String quelle;
 
@@ -20,9 +19,6 @@ public class RechnungsLeser {
 	public Kasse leseKasse() throws FileNotFoundException {
 
 		Kasse kasse = new Kasse();
-		// Erzeugt ein Dateiobjekt f (File) aus dem Namen der Datei quelle
-		// sowie einen Scanner, der das Dateiobjekt f liest.
-		// Eine Zeile in der Datei entspricht einer Rechnung.
 		File f = new File(Paths.get(quelle).toString());
 
 		Scanner filescanner = new Scanner(f);
@@ -37,15 +33,12 @@ public class RechnungsLeser {
 
 			//-------------------------------------
 
-
 		while (filescanner.hasNextLine() && filescanner.skip("\\s*").hasNextLine()) {
 
 			String zeile=filescanner.nextLine();
 			Scanner zeileScanner= new Scanner(zeile);
 
 			zeileScanner.useDelimiter(delim);											//Zeilenscanner nutzt delim (   ||  ) als Trennzeichen für Token
-
-
 
             Matcher matcherRechnungsNr=rechnungsNRFinder.matcher(zeileScanner.next());  //Matcher zum Finden der RechnungsNr anhand des RegExp rechnungsNrFinder
 			Rechnung rechnungforKasse=null;
@@ -54,9 +47,6 @@ public class RechnungsLeser {
 				rechnungforKasse = new Rechnung(rechnungsNr);                        //Baut mit dem umgewandelten Wert ein Rechnungsobjekt
 			}
 			//Erstelle Rechnungsobjekt mit der Rechnungsnummer, also der ersten Zahl aus der Zeile
-
-
-
 
 				while (zeileScanner.hasNext()) {            //Checkt ob noch Token vorhanden sind
 					Matcher matcherPosFinder = positionFinder.matcher(zeileScanner.next());
@@ -72,17 +62,10 @@ public class RechnungsLeser {
 							posgeldBetrag = new GeldBetrag(euro);
 						}
 
-
 						Position posForRechnung = new Position(posgeldBetrag,matcherPosFinder.group(1));
 						rechnungforKasse.add(posForRechnung);
-						if (rechnungforKasse!=null) {
-							System.out.println(rechnungforKasse);  //Testausgabe
-
-						}
 					}
-
 				}
-
 			zeileScanner.close();
 			kasse.add(rechnungforKasse);
 		}
